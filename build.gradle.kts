@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.3"
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
+	kotlin("plugin.jpa") version "1.8.22"
 }
 
 group = "com.vtb"
@@ -28,6 +29,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.1.4")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
@@ -43,4 +45,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+allOpen {
+	annotation("javax.persistence.Entity")
+	annotation("javax.persistence.MappedSuperclass")
+	annotation("javax.persistence.Embeddable")
 }
