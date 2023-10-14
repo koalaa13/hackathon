@@ -7,6 +7,11 @@ import jakarta.persistence.Table
 @Table(name="banks")
 class BankEntity(
     val bankName: String,
-    val latitude: Double,
-    val longitude: Double,
-) : BaseAuditEntity<Long>() {}
+    var latitude: Double,
+    var longitude: Double,
+) : BaseAuditEntity<Long>() {
+    fun set(mp: MapPoint) {
+        this.latitude = mp.lat
+        this.longitude = mp.long
+    }
+}

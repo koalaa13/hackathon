@@ -30,6 +30,9 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.1.4")
+	implementation("com.squareup.okhttp3:okhttp:4.10.0")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3")
+
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
