@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppBar, Box, Button, CssBaseline, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer, Toolbar, Typography } from '@mui/material';
+import { useStore } from "../stores/store";
 
 function Menu() {
+    const { bankStore } = useStore();
     const drawerWidth = 30;
+
+    useEffect(() => {
+        console.log(bankStore);
+    }, []);
 
     return (
         <Box sx={{ display: 'flex' }}>

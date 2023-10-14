@@ -1,16 +1,8 @@
 import { makeAutoObservable } from "mobx";
-import { Task } from "../interfaces/Task";
+import { Bank } from "../interfaces/Bank";
 
 const bankStore = () => {
-    return makeAutoObservable({
-        id: 1,
-        name: 'bank',
-        address: 'address',
-        latitude: 0,
-        longitude: 0,
-        tasks: [] as Task[],
-        load: [] as number[]
-    });
+    return makeAutoObservable<Bank[]>([] as Bank[]);
 };
 
 export default bankStore;

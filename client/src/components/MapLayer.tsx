@@ -52,15 +52,14 @@ function MapLayer({ defaultState }: MapLayerProps) {
                 ...curBanks.filter((curBank) => curBank.id !== bank.id),
                 {
                     ...bank,
-                    loads: response
+                    loads: response.data
                 }
             ]);
 
-            // for (const key of Object.keys(bank)) {
-            //     bankStore[key] = bank[key];
-            // }
-
-            // bankStore["load"] = response;
+            bankStore[0] =  {
+                ...bank,
+                load: response.data
+            };
         }
     }
 
