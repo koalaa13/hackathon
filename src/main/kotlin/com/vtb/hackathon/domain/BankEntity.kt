@@ -11,7 +11,7 @@ class BankEntity(
     var longitude: Double,
 ) : BaseAuditEntity<Long>() {
     fun set(mp: MapPoint) {
-        this.latitude = mp.lat
-        this.longitude = mp.long
+        this.latitude = mp.latitude
+        this.longitude = mp.longitude
     }
 }
