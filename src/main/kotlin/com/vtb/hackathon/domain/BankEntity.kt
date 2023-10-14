@@ -4,14 +4,12 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Table
 
 @Entity
-@Table(name="banks")
+@Table(name="bank")
 class BankEntity(
     val bankName: String,
-    var latitude: Double,
-    var longitude: Double,
+    val latitude: Double,
+    val longitude: Double,
+    val address: String,
+//    @ManyToMany val tasks: List<TaskEntity>
 ) : BaseAuditEntity<Long>() {
-    fun set(mp: MapPoint) {
-        this.latitude = mp.latitude
-        this.longitude = mp.longitude
-    }
 }
