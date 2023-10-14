@@ -56,10 +56,10 @@ function MapLayer({ defaultState }: MapLayerProps) {
                 }
             ]);
 
-            bankStore[0] =  {
+            bankStore.list.push({
                 ...bank,
                 load: response.data
-            };
+            });
         }
     }
 
