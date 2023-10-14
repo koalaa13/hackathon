@@ -46,11 +46,7 @@ function MapLayer({ defaultState }: MapLayerProps) {
             e.preventDefault();
 
             const url: string = SERVER_HOST + '/api/v1/load';
-            const response = await axios.get(url, {
-                params: {
-                  id: bank.id
-                }
-            });
+            const response = await axios.get(url + `/${bank.id}`);
             
             setBanks((curBanks) => [
                 ...curBanks.filter((curBank) => curBank.id !== bank.id),
@@ -59,6 +55,12 @@ function MapLayer({ defaultState }: MapLayerProps) {
                     loads: response
                 }
             ]);
+
+            // for (const key of Object.keys(bank)) {
+            //     bankStore[key] = bank[key];
+            // }
+
+            // bankStore["load"] = response;
         }
     }
 
