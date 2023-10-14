@@ -14,4 +14,6 @@ class BankEntity(
         this.latitude = mp.latitude
         this.longitude = mp.longitude
     }
+
+    fun getPoint() = MapPoint(this.latitude, this.longitude)
 }
