@@ -4,6 +4,7 @@ import com.vtb.hackathon.domain.BankEntity
 import com.vtb.hackathon.domain.MapPoint
 import com.vtb.hackathon.repository.BankRepository
 import com.vtb.hackathon.service.BankService
+import com.vtb.hackathon.service.MapsService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,6 +16,8 @@ class TestBanksDB(
     private val bankRepository: BankRepository,
     @Autowired
     private val bankService: BankService,
+    @Autowired
+    private val mapsService: MapsService,
 ) {
 
     @Test
@@ -35,12 +38,8 @@ class TestBanksDB(
     }
 
     @Test
-    fun checkBankController() {
-        val dummyEntity = BankEntity("hui", 1.0, 2.0)
-        bankRepository.save(dummyEntity)
-        val point = MapPoint(1.0, 1.0)
-        val banksList = bankService.getNearBanks(point)
-        Assertions.assertThat(banksList.size).isEqualTo(1)
-
+    fun checkMapsService() {
+        val digit = mapsService.getRoute(MapPoint(59.9844894, 30.3170267), MapPoint(59.9698373, 30.340402))
+        Assertions.assertThat(digit.distance).isEqualTo(4069.84)
     }
 }
