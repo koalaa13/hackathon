@@ -12,4 +12,10 @@ class BankEntity(
     val address: String,
 //    @ManyToMany val tasks: List<TaskEntity>
 ) : BaseAuditEntity<Long>() {
+    fun set(mp: MapPoint) {
+        this.latitude = mp.latitude
+        this.longitude = mp.longitude
+    }
+
+    fun getPoint() = MapPoint(this.latitude, this.longitude)
 }

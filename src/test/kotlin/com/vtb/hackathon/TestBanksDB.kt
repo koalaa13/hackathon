@@ -38,7 +38,7 @@ class TestBanksDB(
     fun checkBankService() {
         val dummy = bankRepository.findAll()
         Assertions.assertThat(dummy.size).isEqualTo(0)
-        val dummyEntity = BankEntity("hui", 1.0, 2.0, "улица Пушкина")
+        val dummyEntity = BankEntity("hui", 1.0, 1.01, "улица Пушкина")
         bankRepository.save(dummyEntity)
         val point = MapPoint(1.0, 1.0)
         val banksList = bankService.getNearBanks(point)
