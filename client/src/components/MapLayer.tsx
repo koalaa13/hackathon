@@ -13,7 +13,7 @@ function MapLayer({defaultState}: MapLayerProps) {
     const SERVER_HOST: string = process.env.REACT_APP_SERVER_HOST ?? 'http://localhost:8080';
 
     async function getBanks() {
-        const url: string = SERVER_HOST + '/banks';
+        const url: string = SERVER_HOST + '/api/v1/banks/all';
         const response = await axios.get(url);
         console.log(response);
     }
