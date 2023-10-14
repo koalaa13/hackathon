@@ -1,3 +1,3 @@
 package com.vtb.hackathon.domain
 
-class MapPoint(val lat: Double, val long: Double)
+class MapPoint(val latitude: Double, val longitude: Double)
