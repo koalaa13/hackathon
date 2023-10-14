@@ -15,7 +15,7 @@ class LoadController(val loadService: LoadService) {
 
     @GetMapping("/{bankId}")
     @ResponseBody
-    fun getLoadFromBank(@PathVariable bankId: String): String {
+    fun getLoadFromBank(@PathVariable bankId: Long): String {
         return loadService.getLoad(bankId).toString()
     }
 }

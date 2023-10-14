@@ -1,6 +1,9 @@
 package com.vtb.hackathon.domain
 
 import jakarta.persistence.Entity
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.JoinTable
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.Table
 
 @Entity
@@ -10,12 +13,14 @@ class BankEntity(
     val latitude: Double,
     val longitude: Double,
     val address: String,
-//    @ManyToMany val tasks: List<TaskEntity>
-) : BaseAuditEntity<Long>() {
-    fun set(mp: MapPoint) {
-        this.latitude = mp.latitude
-        this.longitude = mp.longitude
-    }
 
-    fun getPoint() = MapPoint(this.latitude, this.longitude)
+    @ManyToMany
+    @JoinTable(
+        name = "bank_task",
+        joinColumns = [JoinColumn(name = "bank_id")],
+        inverseJoinColumns = [JoinColumn(name = "task_id")]
+    )
+    val tasks: MutableSet<TaskEntity> = mutableSetOf()
+) : BaseAuditEntity<Long>() {
+     fun getPoint() = MapPoint(this.latitude, this.longitude)
 }

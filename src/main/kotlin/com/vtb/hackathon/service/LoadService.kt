@@ -3,8 +3,6 @@ package com.vtb.hackathon.service
 import com.vtb.hackathon.domain.LoadInfo
 import com.vtb.hackathon.repository.TaskRepository
 import org.springframework.stereotype.Service
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -20,7 +18,7 @@ class LoadService(val taskRepository: TaskRepository) {
         return List(24) { _ -> LoadInfo(0.0) }
     }
 
-    private class BankState {
+    private class BankState(val taskRepository: TaskRepository) {
         private val visitors = HashMap<Long, Long>()
 
         private var workerCount = AtomicInteger(0)
@@ -42,10 +40,10 @@ class LoadService(val taskRepository: TaskRepository) {
         fun removeWorker() = workerCount.decrementAndGet()
 
         fun calculateWaitingTime(): Double {
-            val averageTimes = taskRepository.findAll()
+            val averageTimes = taskRepository.findAll().associateBy({ it.id }, { it.avgTime })
             synchronized(visitors) {
-                val sumTime = 0.0
-                visitors.forEach { (taskId, taskCount) -> sumTime += averageTimes[taskId] * taskCount }
+                var sumTime = 0.0
+                visitors.forEach { (taskId, taskCount) -> sumTime += averageTimes[taskId]?.times(taskCount) ?: 0.0 }
                 return sumTime / workerCount.get()
             }
         }
