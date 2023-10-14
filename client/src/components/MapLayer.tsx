@@ -2,6 +2,7 @@ import { YMaps, Map, Placemark, SearchControl, RoutePanel, ZoomControl, Geolocat
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Bank } from '../interfaces/Bank';
+import { useStore } from '../stores/store';
 
 interface MapLayerProps {
     defaultState: {
@@ -12,7 +13,7 @@ interface MapLayerProps {
 
 function MapLayer({ defaultState }: MapLayerProps) {
     const [banks, setBanks] = useState([] as Bank[]);
-    const [atms, setAtms] = useState([]);
+    const { bankStore } = useStore();
 
     const SERVER_HOST = 'http://localhost:8080';
 
@@ -40,24 +41,22 @@ function MapLayer({ defaultState }: MapLayerProps) {
         setBanks(() => createBanks(response.data));
     }
 
-    function placemarkClickHandler(bank: Bank) {
+    function bankClickHandler(bank: Bank) {
         return async function (e: React.MouseEvent<HTMLElement>) {
             e.preventDefault();
 
             const url: string = SERVER_HOST + '/api/v1/load';
-            // todo:
-            // const response = await axios.get(url, {
-            //     params: {
-            //       id: bank.id
-            //     }
-            // });
-            const fakeResponse = [1, 2, 3];
-
+            const response = await axios.get(url, {
+                params: {
+                  id: bank.id
+                }
+            });
+            
             setBanks((curBanks) => [
                 ...curBanks.filter((curBank) => curBank.id !== bank.id),
                 {
                     ...bank,
-                    loads: fakeResponse //response
+                    loads: response
                 }
             ]);
         }
@@ -83,12 +82,12 @@ function MapLayer({ defaultState }: MapLayerProps) {
                     banks.map((bank: Bank) =>
                         <Placemark
                             key={bank.id}
-                            // onClick={placemarkClickHandler(bank)}
+                            onClick={bankClickHandler(bank)}
                             geometry={[bank.latitude, bank.longitude]}
+                            options={{ iconColor: bank.isATM ? 'red' : 'blue' }}
                         />
                     )
                 }
-                <RoutePanel options={{ float: "right" }} />
                 <ZoomControl options={{ position: { right: 0, bottom: 30 } }} />
                 <GeolocationControl options={{ float: "right" }} />
             </Map>
