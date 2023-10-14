@@ -29,6 +29,10 @@ class BankService(val bankRepository: BankRepository) {
         return radiusEarth * c
     }
 
+    fun getAllBanks(): List<BankEntity> {
+        return bankRepository.findAll()
+    }
+
     fun getNearBanks(center: MapPoint): List<BankEntity> {
         return getNearBanks(center, radius = 5.0)
     }
