@@ -21,7 +21,7 @@ class MapsService(
     val httpClient: OkHttpClient = OkHttpClient()
     val objectMapper: ObjectMapper = jacksonObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
-    fun getRoute(from: MapPoint, to: MapPoint, profile: Profile = Profile.FOOT): RouteInfo {
+    fun getRoute(from: MapPoint, to: MapPoint, profile: Profile = Profile.CAR): RouteInfo {
         val apiKey = apiProperties.key
         val lat1 = from.latitude
         val long1 = from.longitude

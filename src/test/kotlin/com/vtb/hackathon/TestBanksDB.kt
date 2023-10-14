@@ -30,7 +30,7 @@ class TestBanksDB(
 
     @Test
     fun checkBankService() {
-        val dummyEntity = BankEntity("hui", 1.0, 2.0)
+        val dummyEntity = BankEntity("hui", 1.0, 1.01)
         bankRepository.save(dummyEntity)
         val point = MapPoint(1.0, 1.0)
         val banksList = bankService.getNearBanks(point)
