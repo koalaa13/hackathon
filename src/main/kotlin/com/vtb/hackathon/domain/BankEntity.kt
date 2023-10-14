@@ -13,6 +13,7 @@ class BankEntity(
     val latitude: Double,
     val longitude: Double,
     val address: String,
+    val isATM: Boolean,
 
     @ManyToMany
     @JoinTable(

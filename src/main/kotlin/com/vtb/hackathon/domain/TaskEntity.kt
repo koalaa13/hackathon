@@ -1,5 +1,6 @@
 package com.vtb.hackathon.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.Entity
 import jakarta.persistence.ManyToMany
 import jakarta.persistence.Table
@@ -11,5 +12,6 @@ class TaskEntity(
     val taskName: String,
     val avgTime: Double,
     @ManyToMany(mappedBy = "tasks")
+    @JsonIgnore
     val banks: MutableSet<BankEntity> = mutableSetOf()
 ) : BaseAuditEntity<Long>()

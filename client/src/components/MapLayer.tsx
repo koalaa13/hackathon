@@ -10,26 +10,6 @@ interface MapLayerProps {
     }
 }
 
-const defaultBanks: Bank[] = [
-    {
-        id: 1,
-        longitude: 59.962588,
-        latitude: 30.294192,
-        tasks: [{ task_id: 1, name: 'task_1' }, { task_id: 2, name: 'task_2' }],
-        name: 'Test name 2',
-        address: 'Address 1'
-    },
-    {
-        id: 2,
-        longitude: 59.946659,
-        latitude: 30.356204,
-        tasks: [{ task_id: 3, name: 'task_3' }, { task_id: 2, name: 'task_2' }],
-        name: 'Test name 2',
-        address: 'Address 2'
-    }
-];
-
-
 function MapLayer({ defaultState }: MapLayerProps) {
     const [banks, setBanks] = useState([] as Bank[]);
     const [atms, setAtms] = useState([]);
@@ -46,7 +26,8 @@ function MapLayer({ defaultState }: MapLayerProps) {
                 longitude: bank.longitude,
                 name: bank.bankName,
                 address: bank.address,
-                tasks: bank.tasks
+                tasks: bank.tasks,
+                isATM: bank.isATM
             });
         }
 
@@ -56,12 +37,7 @@ function MapLayer({ defaultState }: MapLayerProps) {
     async function getBanks() {
         const url: string = SERVER_HOST + '/api/v1/banks/all';
         const response = await axios.get(url);
-        setBanks((banks) => createBanks(response.data));
-    }
-
-    async function getFakeBanks() {
-        const response = defaultBanks;
-        setBanks((banks) => createBanks(response));
+        setBanks(() => createBanks(response.data));
     }
 
     function placemarkClickHandler(bank: Bank) {
@@ -88,9 +64,7 @@ function MapLayer({ defaultState }: MapLayerProps) {
     }
 
     useEffect(() => {
-        // todo:
-        // getBanks();
-        getFakeBanks();
+        getBanks();
     }, []);
 
     return (
@@ -109,8 +83,8 @@ function MapLayer({ defaultState }: MapLayerProps) {
                     banks.map((bank: Bank) =>
                         <Placemark
                             key={bank.id}
-                            onClick={placemarkClickHandler(bank)}
-                            geometry={[bank.longitude, bank.latitude]}
+                            // onClick={placemarkClickHandler(bank)}
+                            geometry={[bank.latitude, bank.longitude]}
                         />
                     )
                 }

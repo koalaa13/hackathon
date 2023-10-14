@@ -8,4 +8,5 @@ export interface Bank {
     longitude: number;
     tasks?: Task[];
     load?: number[];
+    isATM: boolean;
 }

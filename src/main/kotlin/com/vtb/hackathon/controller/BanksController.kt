@@ -1,5 +1,6 @@
 package com.vtb.hackathon.controller
 
+import com.vtb.hackathon.domain.BankEntity
 import com.vtb.hackathon.domain.MapPoint
 import com.vtb.hackathon.service.BankService
 import lombok.AllArgsConstructor
@@ -14,8 +15,8 @@ class BanksController(val bankService: BankService) {
 
     @GetMapping("/all")
     @ResponseBody
-    fun getAllBanks(): String {
-        return bankService.getAllBanks().toString()
+    fun getAllBanks(): List<BankEntity> {
+        return bankService.getAllBanks()
     }
 
     @PostMapping("/near")
