@@ -1,4 +1,6 @@
 import { YMaps, Map, Placemark, SearchControl, RoutePanel, ZoomControl } from '@pbe/react-yandex-maps';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 interface MapLayerProps {
     defaultState: {
@@ -8,8 +10,20 @@ interface MapLayerProps {
 }
 
 function MapLayer({defaultState}: MapLayerProps) {
+    const SERVER_HOST: string = process.env.REACT_APP_SERVER_HOST ?? 'http://localhost:8080';
+
+    async function getBanks() {
+        const url: string = SERVER_HOST + '/banks';
+        const response = await axios.get(url);
+        console.log(response);
+    }
+    
+    useEffect(() => {
+        getBanks();
+    }, []);
+
     return (
-        <YMaps query={{ apikey: '1c3c9b4b-82f8-45d1-b365-dc0559fd8f49', suggest_apikey: 'b088d678-a72e-4ae5-905d-5fcca43f0a9b'}}>
+        <YMaps query={{ apikey: process.env.REACT_MAP_API_TOKEN, suggest_apikey: process.env.REACT_MAP_SUGGEST_API_TOKEN }}>
             <Map defaultState={defaultState} width={'100vw'} height={'100vh'}>
                 <SearchControl options={{ float: "right", provider: 'yandex#search' }} />
                 <Placemark geometry={[59.962588,30.294192]} />
